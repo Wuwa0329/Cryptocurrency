@@ -11,7 +11,7 @@ tmp_csv="$(mktemp /tmp/XXXXXX.csv)"
 rm $tmp_csv
 
 mysql -h $mysql_host -u $mysql_user -p Cryptocurrency --password=$mysql_password \
-    -e "SELECT DATE_FORMAT(Date, '%Y-%m-%dT%H:%i:%s'), Price INTO OUTFILE '$tmp_csv' FROM Price WHERE Asset='$instrument' ORDER BY Date ASC;"
+    -e "SELECT DISTINCT DATE_FORMAT(Date, '%Y-%m-%dT%H:%i:%s'), Price INTO OUTFILE '$tmp_csv' FROM Price WHERE Asset='$instrument' ORDER BY Date ASC;"
 
 gnuplot -e "
     set terminal png;
