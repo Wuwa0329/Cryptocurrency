@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # data api from https://www.coindesk.com/price/bitcoin
-# ./poll_data.sh BTC-USD 192.168.95.128 mysql_password
+# ./poll_data.sh BTC-USD 192.168.95.128 mysql_user mysql_password
 instrument=$1
 mysql_host=$2
 mysql_user=$3
