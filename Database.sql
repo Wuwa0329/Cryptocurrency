@@ -1,24 +1,14 @@
 -- Create the database if it doesn't exist
-CREATE DATABASE IF NOT EXISTS gold_tracker_db;
-USE gold_tracker_db;
+CREATE Cryptocurrency IF NOT EXISTS Cryptocurrency;
+USE Cryptocurrency;
 
 
--- Create the Metals table 
-CREATE TABLE Metals (
-    metal_id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50) NOT NULL UNIQUE,
-    symbol VARCHAR(10),
-    unit VARCHAR(20)
-);
-
--- Create the Price_History table
-CREATE TABLE Price_History (
-    price_id INT AUTO_INCREMENT PRIMARY KEY,
-    metal_id INT NOT NULL,
-    timestamp DATETIME NOT NULL,
-    price DECIMAL(10, 2) NOT NULL,
-    change_24h DECIMAL(6, 2),
-    FOREIGN KEY (metal_id) REFERENCES Metals(metal_id)
+-- Create the Price table 
+CREATE TABLE Price (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    Date datetime NOT NULL,
+    Asset VARCHAR(50) NOT NULL,
+    Price DECIMAL(20, 10) NOT NULL
 );
 
 -- Insert the static commodity data once
