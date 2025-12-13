@@ -8,6 +8,7 @@ mysql_host=$2
 mysql_user=$3
 mysql_password=$4
 
+echo "Polling data for $instrument at $(date +"%Y-%m-%d %H:%M:%S")"
 
 curl -s "https://data-api.cryptocompare.com/index/cc/v1/historical/minutes?market=cadli&instrument=$instrument&limit=60&aggregate=1&fill=true&apply_mapping=true&response_format=JSON" | \
     jq -r '.Data[] | 
