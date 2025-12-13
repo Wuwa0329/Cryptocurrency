@@ -11,7 +11,5 @@ CREATE TABLE Price (
     Volume DECIMAL(20, 10) NOT NULL,
     Price DECIMAL(20, 10) NOT NULL,
     Max_Price DECIMAL(20, 10) NOT NULL,
-    Min_Price DECIMAL(20, 10) NOT NULL,
-    Average_Price DECIMAL(20, 10) NOT NULL,
-    Rate_of_Change DECIMAL(10, 5) NOT NULL
+    Min_Price DECIMAL(20, 10) NOT NULL
 );
