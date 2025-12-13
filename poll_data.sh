@@ -2,13 +2,15 @@
 
 # data api from https://www.coindesk.com/price/bitcoin
 # ./poll_data.sh BTC-USD 192.168.95.128 mysql_user mysql_password
+# ./poll_data.sh ETH-USD 192.168.95.128 mysql_user mysql_password
 instrument=$1
 mysql_host=$2
 mysql_user=$3
 mysql_password=$4
+instrument2=$5
 
 
 curl -s "https://data-api.cryptocompare.com/index/cc/v1/historical/minutes?market=cadli&instrument=$instrument&limit=60&aggregate=1&fill=true&apply_mapping=true&response_format=JSON" | \
     jq -r '.Data[] | 
-    "INSERT INTO Price (Date, Asset, Type, Volume, Price, Hugh, Low) VALUES (FROM_UNIXTIME(\(.TIMESTAMP)), \"\(.INSTRUMENT)\", \(TYPE), \(.VOLUME), \(.OPEN));"' | \
+    "INSERT INTO Price (Date, Asset, Type, Volume, Price) VALUES (FROM_UNIXTIME(\(.TIMESTAMP)), \"\(.INSTRUMENT)\", \(TYPE), \(.VOLUME), \(.OPEN));"' | \
     mysql -h $mysql_host -u $mysql_user -p Cryptocurrency --password=$mysql_password

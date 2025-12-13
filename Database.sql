@@ -10,5 +10,8 @@ CREATE TABLE Price (
     Asset VARCHAR(50) NOT NULL,
     Type VARCHAR(50) NOT NULL,
     Volume DECIMAL(20, 10) NOT NULL,
-    Price DECIMAL(20, 10) NOT NULL
+    Price DECIMAL(20, 10) NOT NULL,
+    Max_Price DECIMAL(20, 10) NOT NULL,
+    Min_Price DECIMAL(20, 10) NOT NULL,
+    Average_Price DECIMAL(20, 10) NOT NULL
 );
