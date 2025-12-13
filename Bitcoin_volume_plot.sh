@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ./plot_data2.sh BTC-USD 192.168.95.128 mysql_user mysql_password
-instrument=$1
+instrument2=$5
 mysql_host=$2
 mysql_user=$3
 mysql_password=$4
