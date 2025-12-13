@@ -1,6 +1,12 @@
 #!/bin/bash
 
-# sudo ./crontab_setup.sh BTC-USD 192.168.95.128 mysql_user mysql_password ETH-USD LTC-USD BCH-USD BNB-USD
+if [ -z "$8" ];
+then
+    echo "Mandatory argument missing!"
+    echo "Usage: sudo ./crontab_setup.sh [Instrument1] [MYSQL_HOST] [MYSQL_USER] [MYSQL_PASSWORD] [Instrument2] [Instrument3] [Instrument4] [Instrument5]"
+    echo "Example: sudo ./crontab_setup.sh BTC-USD 192.168.1.1 mysqluser mysqlpass ETH-USD LTC-USD BCH-USD BNB-USD"
+    exit 1
+fi
 
 instrument=$1
 mysql_host=$2

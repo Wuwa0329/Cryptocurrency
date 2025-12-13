@@ -1,5 +1,13 @@
 #!/bin/bash
 
+if [ -z "$4" ];
+then
+    echo "Mandatory argument missing!"
+    echo "Usage: ./plot_data.sh [Instrument] [MYSQL_HOST] [MYSQL_USER] [MYSQL_PASSWORD]"
+    echo "Example: ./plot_data.sh BTC-USD 192.168.1.1 mysqluser mysqlpass"
+    exit 1
+fi
+
 # ./plot_data.sh BTC-USD 192.168.95.128 mysql_user mysql_password 
 instrument=$1
 mysql_host=$2
