@@ -11,5 +11,5 @@ mysql_password=$4
 
 curl -s "https://data-api.cryptocompare.com/index/cc/v1/historical/minutes?market=cadli&instrument=$instrument&limit=60&aggregate=1&fill=true&apply_mapping=true&response_format=JSON" | \
     jq -r '.Data[] | 
-    "INSERT INTO Price (Date, Asset, Volume, Price, Min_Price, Max_Price) VALUES (FROM_UNIXTIME(\(.TIMESTAMP)), \"\(.INSTRUMENT)\",  \(.VOLUME), \(.OPEN), \(.LOW_MESSAGE_VALUE), \(.HIGH_MESSAGE_VALUE));"' |\
+    "INSERT INTO Price (Date, Asset, Volume, Price, Min_Price, Max_Price) VALUES (FROM_UNIXTIME(\(.TIMESTAMP)), \"\(.INSTRUMENT)\",  \(.VOLUME), \(.OPEN), \(.LOW), \(.HIGH));"' |\
     mysql -h $mysql_host -u $mysql_user -p Cryptocurrency --password=$mysql_password
