@@ -11,11 +11,11 @@ tmp_csv="$(mktemp /tmp/XXXXXX.csv)"
 rm $tmp_csv
 
 mysql -h $mysql_host -u $mysql_user -p Cryptocurrency --password=$mysql_password \
-    -e "SELECT DISTINCT DATE_FORMAT(Date, '%Y-%m-%dT%H:%i:%s'), Price INTO OUTFILE '$tmp_csv' FROM Price WHERE Asset='$instrument' ORDER BY Date ASC;"
+    -e "SELECT DISTINCT DATE_FORMAT(Date, '%Y-%m-%dT%H:%i:%s'), Price, MIN_Price, MAX_Price, Volume INTO OUTFILE '$tmp_csv' FROM Price WHERE Asset='$instrument' ORDER BY Date ASC;"
 
 gnuplot -e "
     set terminal png;
-    set output 'price_plot.png';
+    set output 'price_plot_$instrument.png';
     set title '$instrument Price Over Time';
     set xlabel 'Time';
     set xdata time;
@@ -23,4 +23,18 @@ gnuplot -e "
     set format x '%H:%M';
     set ylabel 'Price (USD)';
     set grid;
-    plot '$tmp_csv' using 1:2 w l t 'Price';"
+    plot '$tmp_csv' using 1:2 w l t 'Price',
+        '$tmp_csv' using 1:3 w l t 'Min price',
+        '$tmp_csv' using 1:4 w l t 'Max price'"
+
+gnuplot -e "
+    set terminal png;
+    set output 'volume_plot_$instrument.png';
+    set title '$instrument Volume Over Time';
+    set xlabel 'Time';
+    set xdata time;
+    set timefmt '%Y-%m-%dT%H:%M:%S';
+    set format x '%H:%M';
+    set ylabel 'Volume';
+    set grid;
+    plot '$tmp_csv' using 1:5 w l t 'Volume';"
