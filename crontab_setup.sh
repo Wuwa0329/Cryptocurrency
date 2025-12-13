@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# sudo ./crontab_setup.sh BTC-USD 192.168.95.128 mysql_user mysql_password ETH-USD LTC-USD USDT-USD BNB-USD
+# sudo ./crontab_setup.sh BTC-USD 192.168.95.128 mysql_user mysql_password ETH-USD LTC-USD BCH-USD BNB-USD
 
 instrument=$1
 mysql_host=$2

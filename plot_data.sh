@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# ./plot_data.sh BTC-USD 192.168.95.128 mysql_user mysql_password
+# ./plot_data.sh BTC-USD 192.168.95.128 mysql_user mysql_password 
 instrument=$1
 mysql_host=$2
 mysql_user=$3
@@ -11,7 +11,7 @@ tmp_csv="$(mktemp /tmp/XXXXXX.csv)"
 rm $tmp_csv
 
 mysql -h $mysql_host -u $mysql_user -p Cryptocurrency --password=$mysql_password \
-    -e "SELECT DISTINCT DATE_FORMAT(Date, '%Y-%m-%dT%H:%i:%s'), Price, MIN_Price, MAX_Price, Volume INTO OUTFILE '$tmp_csv' FROM Price WHERE Asset='$instrument' ORDER BY Date ASC;"
+    -e "SELECT DISTINCT DATE_FORMAT(Date, '%Y-%m-%dT%H:%i:%s'), Price, Volume INTO OUTFILE '$tmp_csv' FROM Price WHERE Asset='$instrument' ORDER BY Date ASC;"
 
 gnuplot -e "
     set terminal png;
@@ -23,9 +23,8 @@ gnuplot -e "
     set format x '%H:%M';
     set ylabel 'Price (USD)';
     set grid;
-    plot '$tmp_csv' using 1:2 w l t 'Price',
-        '$tmp_csv' using 1:3 w l t 'Min price',
-        '$tmp_csv' using 1:4 w l t 'Max price'"
+    plot '$tmp_csv' using 1:2 w l t 'Price'"
+
 
 gnuplot -e "
     set terminal png;
@@ -37,4 +36,4 @@ gnuplot -e "
     set format x '%H:%M';
     set ylabel 'Volume';
     set grid;
-    plot '$tmp_csv' using 1:5 w l t 'Volume';"
+    plot '$tmp_csv' using 1:3 w l t 'Volume';"
